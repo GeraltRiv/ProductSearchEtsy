@@ -70,11 +70,14 @@ public class Dao {
         realm.commitTransaction();
     }
 
-    public void deleteProduct(long id) {
-        realm.beginTransaction();
-        RealmResults<Product> rows = realm.where(Product.class).equalTo("listingId", id).findAll();
-        rows.deleteAllFromRealm();
-        realm.commitTransaction();
+    public void deleteProduct(final long id) {
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Product> result = realm.where(Product.class).equalTo("listingId", id).findAll();
+                result.deleteAllFromRealm();
+            }
+        });
     }
 
 

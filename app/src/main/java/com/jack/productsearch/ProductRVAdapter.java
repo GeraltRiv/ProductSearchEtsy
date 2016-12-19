@@ -21,6 +21,7 @@ import com.jack.productsearch.models.ProductState;
 import com.jack.productsearch.utils.SaveAnimationListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -146,11 +147,12 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.View
     }
 
     public void deleteItem(long id) {
-        for (Product product : productList)
+        for (Iterator<Product> iterator = productList.iterator(); iterator.hasNext(); ) {
+            Product product = iterator.next();
             if (product.getListingId() == id) {
-                this.productList.remove(product);
+                iterator.remove();
                 this.notifyDataSetChanged();
             }
-
+        }
     }
 }
