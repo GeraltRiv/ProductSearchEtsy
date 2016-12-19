@@ -8,4 +8,8 @@
     <string name="searching">Searching...</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="this_product_deleted">This product was deleted</string>
+    <string name="this_product_saved">This product saved</string>
+    <string name="warning">Warning</string>
 </resources>

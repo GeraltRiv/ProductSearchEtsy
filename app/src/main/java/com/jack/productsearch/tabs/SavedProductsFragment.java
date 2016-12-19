@@ -80,8 +80,8 @@ public class SavedProductsFragment extends Fragment implements RVCallback{
 
     @Override
     public void onProductDeleted(Product product) {
-        dao.deleteProduct(product.getListingId());
         ((MainActivity) getActivity()).savedProductsAdapter.deleteItem(product.getListingId());
+        dao.deleteProduct(product.getListingId());
     }
 
     @Override

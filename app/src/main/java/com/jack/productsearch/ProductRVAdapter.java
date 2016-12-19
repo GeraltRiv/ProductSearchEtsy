@@ -98,7 +98,7 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.View
                     animZoomin.setAnimationListener(saveAnimationListener);
                     holder.saveDeleteButton.startAnimation(animZoomin);
                 } else {
-                    final Dialog dialog = new Dialog(context, "Error", "\n\n");
+                    final Dialog dialog = new Dialog(context, context.getString(R.string.warning), "\n\n");
                     dialog.addCancelButton(context.getString(R.string.cancel));
                     dialog.show();
                     dialog.getButtonAccept().setText(context.getString(R.string.delete));
@@ -117,6 +117,7 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.View
         holder.productView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                productList.get(position).setProductState(productListState);
                 rvCallback.onProduсtDetailButtonClicked(productList.get(position));
             }
         });

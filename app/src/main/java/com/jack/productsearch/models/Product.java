@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import lombok.Data;
 
 /**
@@ -36,4 +37,7 @@ public class Product extends RealmObject implements Serializable {
 
     @SerializedName("MainImage")
     private Image image;
+
+    @Ignore
+    private ProductState productState;
 }
