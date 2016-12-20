@@ -150,7 +150,6 @@ public class SearchFragment extends Fragment implements ProductsCallback, Pagina
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                closeKeyboard();
                 if (!recyclerView.canScrollVertically(-1))
                     swipeRefreshLayout.setEnabled(true);
                 else
@@ -183,6 +182,7 @@ public class SearchFragment extends Fragment implements ProductsCallback, Pagina
 
     @Override
     public void onProductsLoad(List<Product> productList) {
+        searchEditText.clearFocus();
         progressDialog.cancel();
         offset = productList.size();
         filtersView.setVisibility(View.GONE);
@@ -201,15 +201,6 @@ public class SearchFragment extends Fragment implements ProductsCallback, Pagina
 
     @Override
     public void onProductDeleted(Product product) {
-    }
-
-    @Override
-    public void onProduсtDetailButtonClicked(Product product) {
-        ((MainActivity) getActivity()).detailProduct = product;
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, Fragment.instantiate(getActivity(), ProductDetailFragment.class.getName()));
-        ft.addToBackStack(null);
-        ft.commit();
     }
 
     @Override

@@ -85,15 +85,6 @@ public class SavedProductsFragment extends Fragment implements RVCallback{
     }
 
     @Override
-    public void onProduсtDetailButtonClicked(Product product) {
-        ((MainActivity) getActivity()).detailProduct = product;
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, Fragment.instantiate(getActivity(), ProductDetailFragment.class.getName()));
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    @Override
     public void onListEnd() {
 
     }

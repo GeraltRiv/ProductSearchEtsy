@@ -9,6 +9,5 @@ import com.jack.productsearch.models.Product;
 public interface RVCallback {
     void onProductAdded(Product product);
     void onProductDeleted(Product product);
-    void onProduсtDetailButtonClicked(Product product);
     void onListEnd();
 }

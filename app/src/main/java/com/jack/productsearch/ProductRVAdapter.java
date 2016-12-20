@@ -2,6 +2,7 @@ package com.jack.productsearch;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,14 +85,15 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.View
                 .into(holder.productImage);
         holder.titleProduct.setText(productList.get(position).getTitle());
         if (productListState == ProductState.SAVED_PRODUCT)
-            holder.saveDeleteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_delete_white_24dp));
+            setSaveDeleteButtonImage(holder, R.drawable.ic_delete_white_24dp);
         else
-            holder.saveDeleteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_favorite_border_white_24dp));
+            setSaveDeleteButtonImage(holder, R.drawable.ic_favorite_border_white_24dp);
+
         holder.saveDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (productListState == ProductState.UNSAVED_PRODUCT) {
-                    holder.saveDeleteButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_favorite_full_white_24dp));
+                    setSaveDeleteButtonImage(holder, R.drawable.ic_favorite_full_white_24dp);
                     rvCallback.onProductAdded(productList.get(position));
                     saveAnimationListener.setImage(holder.saveDeleteButton, context);
                     Animation animZoomin = AnimationUtils.loadAnimation(context, R.anim.zoom_in);
@@ -118,13 +120,20 @@ public class ProductRVAdapter extends RecyclerView.Adapter<ProductRVAdapter.View
             @Override
             public void onClick(View v) {
                 productList.get(position).setProductState(productListState);
-                rvCallback.onProduсtDetailButtonClicked(productList.get(position));
+                ((MainActivity) context).detailProduct = productList.get(position);
+                android.support.v4.app.FragmentTransaction ft = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, Fragment.instantiate(context, ProductDetailFragment.class.getName()));
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
-        Log.d("Jack", "pos " + position + " size " + productList.size());
         if (position == productList.size() - 1)
             rvCallback.onListEnd();
+    }
+
+    private void setSaveDeleteButtonImage(ViewHolder holder, int resourceID) {
+        holder.saveDeleteButton.setImageDrawable(context.getResources().getDrawable(resourceID));
     }
 
     @Override
